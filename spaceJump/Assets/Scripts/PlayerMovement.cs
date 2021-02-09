@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D playerRb;
     public float speed = .5f;
     public float jumpForce = 10f;
+    bool isGrounded = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,9 +18,19 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         playerRb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, playerRb.velocity.y);
-        if (Input.GetKeyDown(KeyCode.Space))
+        if(isGrounded)
         {
-            playerRb.AddForce(Vector2.up * jumpForce);
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                playerRb.AddForce(Vector2.up * jumpForce);
+                isGrounded = false;
+            }
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject.CompareTag("Floor"))
+        {
+            isGrounded = true;
         }
     }
 }
