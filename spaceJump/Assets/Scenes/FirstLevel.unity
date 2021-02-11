@@ -5688,11 +5688,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1748755560}
   - component: {fileID: 1748755559}
+  - component: {fileID: 1748755562}
   - component: {fileID: 1748755558}
   - component: {fileID: 1748755557}
   - component: {fileID: 1748755556}
   - component: {fileID: 1748755561}
-  - component: {fileID: 1748755562}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -5802,6 +5802,7 @@ MonoBehaviour:
   playerRb: {fileID: 1748755557}
   speed: 6
   jumpForce: 600
+  playerAnimator: {fileID: 1748755562}
 --- !u!4 &1748755560
 Transform:
   m_ObjectHideFlags: 0
