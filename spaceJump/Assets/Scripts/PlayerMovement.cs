@@ -24,11 +24,10 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 playerRb.AddForce(Vector2.up * jumpForce);
-                playerAnimator.SetTrigger("Jumped");
                 isGrounded = false;
             }
         }
-        if(isGrounded == false)
+        if(isGrounded)
         {
             if(Input.GetAxis("Horizontal") == 0)
             {
@@ -43,6 +42,20 @@ public class PlayerMovement : MonoBehaviour
             {
                 playerAnimator.SetBool("isWalking", true);
                 GetComponent<SpriteRenderer>().flipX = false;
+            }
+        }else if(isGrounded == false)
+        {
+            playerAnimator.SetBool("isWalking", false);
+            if(Input.GetAxis("Horizontal") < 0 )
+            {
+                playerAnimator.SetTrigger("Jumped");
+                GetComponent<SpriteRenderer>().flipX = true;
+                playerAnimator.SetBool("isWalking", false);
+            } else if(Input.GetAxis("Horizontal") >= 0)
+            {
+                playerAnimator.SetTrigger("Jumped");
+                GetComponent<SpriteRenderer>().flipX = false;
+                playerAnimator.SetBool("isWalking", false);
             }
         }
     }
