@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 10f;
     bool isGrounded = true;
     public Animator playerAnimator;
-    // Start is called before the first frame update
+     // Start is called before the first frame update
     void Start()
     {
         
@@ -25,38 +25,34 @@ public class PlayerMovement : MonoBehaviour
             {
                 playerRb.AddForce(Vector2.up * jumpForce);
                 isGrounded = false;
+                if(!isGrounded)
+                {
+                    playerAnimator.SetBool("isWalking", false);
+                    if(Input.GetAxis("Horizontal") < 0 )
+                    {
+                        playerAnimator.SetTrigger("Jumped");
+                        GetComponent<SpriteRenderer>().flipX = true;
+                    } else if(Input.GetAxis("Horizontal") >= 0)
+                    {
+                        playerAnimator.SetTrigger("Jumped");
+                        GetComponent<SpriteRenderer>().flipX = false;
+                    }
+                }
             }
         }
-        if(isGrounded)
-        {
-            if(Input.GetAxis("Horizontal") == 0)
-            {
-                playerAnimator.SetBool("isWalking", false);
-            } 
-            else if(Input.GetAxis("Horizontal") < 0)
-            {
-                playerAnimator.SetBool("isWalking", true);
-                GetComponent<SpriteRenderer>().flipX = true;
-            } 
-            else if(Input.GetAxis("Horizontal") > 0)
-            {
-                playerAnimator.SetBool("isWalking", true);
-                GetComponent<SpriteRenderer>().flipX = false;
-            }
-        }else if(isGrounded == false)
+        if(Input.GetAxis("Horizontal") == 0)
         {
             playerAnimator.SetBool("isWalking", false);
-            if(Input.GetAxis("Horizontal") < 0 )
-            {
-                playerAnimator.SetTrigger("Jumped");
-                GetComponent<SpriteRenderer>().flipX = true;
-                playerAnimator.SetBool("isWalking", false);
-            } else if(Input.GetAxis("Horizontal") >= 0)
-            {
-                playerAnimator.SetTrigger("Jumped");
-                GetComponent<SpriteRenderer>().flipX = false;
-                playerAnimator.SetBool("isWalking", false);
-            }
+        } 
+        else if(Input.GetAxis("Horizontal") < 0)
+        {
+            playerAnimator.SetBool("isWalking", true);
+            GetComponent<SpriteRenderer>().flipX = true;
+        } 
+        else if(Input.GetAxis("Horizontal") > 0)
+        {
+            playerAnimator.SetBool("isWalking", true);
+            GetComponent<SpriteRenderer>().flipX = false;
         }
     }
     private void OnCollisionEnter2D(Collision2D other) {
