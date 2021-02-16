@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D playerRb;
     public float speed = .5f;
     public float jumpForce = 10f;
-    bool isGrounded = true;
+    public bool isGrounded = true;
     public Animator playerAnimator;
      // Start is called before the first frame update
     void Start()
@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 playerRb.AddForce(Vector2.up * jumpForce);
                 isGrounded = false;
+                GetComponent<AudioSource>().Play();
                 if(!isGrounded)
                 {
                     playerAnimator.SetBool("isWalking", false);
